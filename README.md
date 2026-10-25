@@ -1,6 +1,6 @@
-# Practical 1 - Student Management REST API
+# M3_P1 - Student Management REST API
 
-A REST API for managing academic student records with Node.js, Express, and MySQL. It listens on port 3000 by default.
+This project implements the Module 3 Practical 1 student management REST API using Node.js, Express, and MySQL. The project folder is `D:\TPDS Projects\M3_P1`, and the API listens on port 3000 by default.
 
 ## Requirements
 
@@ -9,11 +9,33 @@ A REST API for managing academic student records with Node.js, Express, and MySQ
 
 ## Setup
 
-1. Create the database and table by running `database/schema.sql` in MySQL Workbench or the MySQL command line.
-2. Copy `.env.example` to `.env` and set your local MySQL username and password.
-3. In this folder, install dependencies with `npm install`.
-4. Start the API with `npm start` (or `npm run dev` while developing).
-5. Check `GET http://localhost:3000/health`; a working DB returns `{"status":"ok","database":"connected"}`.
+1. Open PowerShell or Command Prompt and go to the project folder:
+
+   ```powershell
+   cd "D:\TPDS Projects\M3_P1"
+   ```
+
+2. Create the database and table by running `database/schema.sql` in MySQL Workbench or the MySQL command line.
+3. Copy `.env.example` to `.env` and set your local MySQL username and password.
+4. Install the Node.js dependencies:
+
+   ```powershell
+   npm install
+   ```
+
+5. Start the API:
+
+   ```powershell
+   npm start
+   ```
+
+   For development with automatic restart, use `npm run dev` instead.
+
+6. Keep the terminal open and send `GET http://localhost:3000/health` in Postman. A connected database returns `{"status":"ok","database":"connected"}`.
+
+## Postman
+
+Import `postman/student-management.postman_collection.json` into Postman. The collection uses `http://localhost:3000` and saves the ID after a successful **Create student** request. Run **Create student** before **Get student**, **Update student**, **Update CGPA**, or **Delete student**.
 
 ## Endpoints
 
@@ -31,8 +53,8 @@ A REST API for managing academic student records with Node.js, Express, and MySQ
 
 ```json
 {
-  "name": "Shubham Jha",
-  "email": "Shubhamv@example.edu",
+  "name": "Aarav Mehta",
+  "email": "aarav@example.edu",
   "department": "Computer Science",
   "semester": 4,
   "cgpa": 8.25
@@ -40,5 +62,3 @@ A REST API for managing academic student records with Node.js, Express, and MySQ
 ```
 
 All five fields are required for POST and PUT. PATCH accepts one or more of those fields. Semester must be an integer from 1 to 12; CGPA must be from 0 to 10. Email addresses are stored in lowercase and must be unique. Invalid input returns 400, duplicate email returns 409, and a missing student returns 404. SQL values are parameterized.
-
-Import `postman/student-management.postman_collection.json` into Postman. Its requests use `http://localhost:3000` and an `studentId` collection variable (default `1`); create a record first and update the variable to its returned ID.
